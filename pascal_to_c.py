@@ -132,7 +132,7 @@ def p_functions(p):
             | empty'''
     if len(p) > 2:
         if p[1] == 'function':
-            p[0] = p[7] + ' ' + p[2] + '(' + p[4] + '){\n' + p[9] + p[10] + '}\n' + p[11]
+            p[0] = type_to_c(p[7]) + ' ' + p[2] + '(' + p[4] + '){\n' + type_to_c(p[7]) + ' ' + p[2] + ';\n' + p[9] + p[10] + 'return ' + p[2] + ';\n' + '}\n' + p[11]
         else:
             p[0] = 'void' + ' ' + p[2] + '(){\n' + p[4] + p[5] + '}\n' + p[6]
     else:
@@ -201,12 +201,18 @@ def p_while_loop(p):
 
 
 def p_for_loop(p):
-    '''for_loop : FOR ID ASSIGN TO INT DO main_body
-            | FOR ID ASSIGN DOWNTO INT DO main_body
-            | FOR ID ASSIGN INT DOWNTO INT DO main_body
+    '''for_loop : FOR ID ASSIGN INT DOWNTO INT DO main_body
             | FOR ID ASSIGN INT TO INT DO main_body'''
-    p[0] = p[1] + '(' + p[2] + '){\n' + p[4] + '}\n'
-# b
+    sign = ""
+    do = ""
+    if p[5] == "downto":
+        sign = ">"
+        do = "--"
+    else:
+        sign = "<"
+        do = "++"
+    p[0] = p[1] + '(' + p[2] + "=" + p[4] + ";" + p[2] + sign + p[6] + ";" + p[2] + do + '){\n' + p[8] + '}\n'
+
 
 def p_repeat_loop(p):
     '''repeat_loop : REPEAT body UNTIL boolean_expression SEMICOLON'''
