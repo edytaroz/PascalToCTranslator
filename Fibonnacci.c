@@ -3,17 +3,17 @@
 #include <string.h>
 #include <stdbool.h>
 int fibonacci(int n){
-int fibonacci;
+int fibonacci1;
 if(n > 1){
-fibonacci = fibonacci(n-2)+fibonacci(n-1);
+fibonacci1 = fibonacci(n-2)+fibonacci(n-1);
 }
 else{
-fibonacci = n;
+fibonacci1 = n;
 }
-return fibonacci;
+return fibonacci1;
 }
 int main(){
-printf(fibonnacci(5));
+printf(fibonacci(5));
 return 0;
 }
 

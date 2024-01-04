@@ -132,7 +132,8 @@ def p_functions(p):
             | empty'''
     if len(p) > 2:
         if p[1] == 'function':
-            p[0] = type_to_c(p[7]) + ' ' + p[2] + '(' + p[4] + '){\n' + type_to_c(p[7]) + ' ' + p[2] + ';\n' + p[9] + p[10] + 'return ' + p[2] + ';\n' + '}\n' + p[11]
+            x = p[10].replace(p[2] + " =", p[2] + "1" + " =")
+            p[0] = type_to_c(p[7]) + ' ' + p[2] + '(' + p[4] + '){\n' + type_to_c(p[7]) + ' ' + p[2] + "1" + ';\n' + p[9] + x + 'return ' + p[2] + "1" + ';\n' + '}\n' + p[11]
         else:
             p[0] = 'void' + ' ' + p[2] + '(){\n' + p[4] + p[5] + '}\n' + p[6]
     else:
@@ -261,7 +262,10 @@ def p_boolean_expression(p):
 def p_and_or(p):
     '''and_or : AND
             | OR'''
-    p[0] = p[1]
+    if p[1] == "or":
+        p[0] = " || "
+    else:
+        p[0] = " && "
 
 
 def p_var_assign(p):
@@ -384,10 +388,10 @@ parser = yacc.yacc()
 
 # f = open("HelloWorld.pas", "rt")
 # out = open("HelloWorld.c", "w")
-# f = open("Fibonnacci.pas", "rt")
-# out = open("Fibonnacci.c", "w")
-f = open("test.pas", "rt")
-out = open("test.c", "w")
+f = open("Fibonnacci.pas", "rt")
+out = open("Fibonnacci.c", "w")
+# f = open("test.pas", "rt")
+# out = open("test.c", "w")
 lines = f.read()
 parser.parse(lines)
 f.close()

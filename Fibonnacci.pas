@@ -11,5 +11,5 @@ begin
 	end
 end
 begin
-    write(fibonnacci(5));
+    write(fibonacci(5));
 end

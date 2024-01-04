@@ -20,7 +20,7 @@ if(num5 > 1){
 printf(num5);
 }
 printf(num1);
-if(num5 == num4 and !(num1*2 > num2)){
+if(num5 == num4  &&  !(num1*2 > num2)){
 printf(num4);
 num5 = 0;
 }
